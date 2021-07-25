@@ -1,0 +1,11 @@
+#!/bin/sh
+if ! grep -iqE "^\[04-script-01-bash\]" "$1"; then
+    echo "Not correct message: should start with [04-script-01-bash]" >&2
+    exit 1
+else
+    cnt=`wc -m "$1" | awk '{print $1}'`
+    if (( $cnt > 31 )); then
+        echo "Not correct message: should have length <= 30" >&2
+        exit 1
+    fi
+fi
