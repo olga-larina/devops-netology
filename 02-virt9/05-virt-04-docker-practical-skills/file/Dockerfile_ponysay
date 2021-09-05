@@ -1,0 +1,6 @@
+FROM archlinux:latest
+
+RUN pacman -Syu --noconfirm && \
+    pacman -S ponysay --noconfirm
+
+CMD ["/usr/bin/ponysay","Hey, netology"]

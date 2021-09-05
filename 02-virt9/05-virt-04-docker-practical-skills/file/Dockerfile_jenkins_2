@@ -1,0 +1,19 @@
+FROM ubuntu:latest
+
+ENV TZ=Europe/Moscow
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+RUN apt-get update -y && \
+    apt install wget -y && \
+    apt-get install gnupg -y
+
+RUN apt install openjdk-11-jdk -y
+
+RUN wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | apt-key add - && \
+    sh -c 'echo deb https://pkg.jenkins.io/debian binary/ > /etc/apt/sources.list.d/jenkins.list' && \
+    apt-get update -y && \
+    apt-get install jenkins -y
+
+EXPOSE 8080
+
+CMD ["java","-jar","/usr/share/jenkins/jenkins.war"]
