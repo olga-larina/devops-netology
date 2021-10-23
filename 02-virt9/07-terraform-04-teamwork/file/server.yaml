@@ -1,0 +1,25 @@
+repos:
+  # репозиторий в моём github-аккаунте в формате {VCS hostname}/{org}/{repo name}
+  - id: github.com/anguisa/atlantis
+    # все ветки
+    branch: /.*/
+
+    # workflow - по умолчанию
+    workflow: default
+
+    # разрешаем изменение workflow с помощью allowed_overrides и allow_custom_workflows
+    allowed_overrides: [workflow]
+
+    allow_custom_workflows: true
+
+# настройки workflow по умолчанию (чтобы во время планирования не происходил lock состояния)
+workflows:
+  default:
+    plan:
+      steps:
+        - init
+        - plan:
+            extra_args: ["-lock", "false"]
+    apply:
+      steps:
+        - apply

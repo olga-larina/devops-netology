@@ -1,0 +1,16 @@
+version: 3
+# если конфигурация в директории myproject изменится, то будут запущены plan и apply для воркспейса
+projects:
+  - name: myproject-stage
+    dir: myproject
+    workspace: stage
+    # автопланирование при изменении любых файлов *.tf
+    autoplan:
+      when_modified: ["*.tf"]
+      enabled: true
+  - name: myproject-prod
+    dir: myproject
+    workspace: prod
+    autoplan:
+      when_modified: ["*.tf"]
+      enabled: true
