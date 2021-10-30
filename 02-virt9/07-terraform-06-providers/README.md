@@ -13,6 +13,7 @@
 
 ### Ответ
 1. Найдите, где перечислены все доступные `resource` и `data_source`, приложите ссылку на эти строки в коде на гитхабе.
+
 `resource` - [https://github.com/hashicorp/terraform-provider-aws/blob/6076d5a60ec814b243bc45170d67cb268a39d927/internal/provider/provider.go#L709](https://github.com/hashicorp/terraform-provider-aws/blob/6076d5a60ec814b243bc45170d67cb268a39d927/internal/provider/provider.go#L709])
 ```
 		ResourcesMap: map[string]*schema.Resource{
@@ -26,6 +27,7 @@
 
 2. Для создания очереди сообщений SQS используется ресурс `aws_sqs_queue` у которого есть параметр `name`.
    * С каким другим параметром конфликтует `name`? Приложите строчку кода, в которой это указано.
+
 С `name_prefix`: [https://github.com/hashicorp/terraform-provider-aws/blob/6076d5a60ec814b243bc45170d67cb268a39d927/internal/service/sqs/queue.go#L97](https://github.com/hashicorp/terraform-provider-aws/blob/6076d5a60ec814b243bc45170d67cb268a39d927/internal/service/sqs/queue.go#L97)
 ```
 		"name": {
@@ -38,8 +40,9 @@
 ```
    * Какая максимальная длина имени?
    * Какому регулярному выражению должно подчиняться имя?
-Длина и регулярное выражение прописаны в `CustomizeDiff` в `resourceQueueCustomizeDiff`. Для FIFO - длина от 1 до 75, заканчивается на `.fifo`; для остальных - от 1 до 80. 
-Ссылка - [https://github.com/hashicorp/terraform-provider-aws/blob/6076d5a60ec814b243bc45170d67cb268a39d927/internal/service/sqs/queue.go#L410](https://github.com/hashicorp/terraform-provider-aws/blob/6076d5a60ec814b243bc45170d67cb268a39d927/internal/service/sqs/queue.go#L410)
+
+Длина и регулярное выражение прописаны в `CustomizeDiff` в `resourceQueueCustomizeDiff`. Для FIFO - длина от 1 до 75, заканчивается на `.fifo`; для остальных - от 1 до 80.   
+Ссылка - [https://github.com/hashicorp/terraform-provider-aws/blob/6076d5a60ec814b243bc45170d67cb268a39d927/internal/service/sqs/queue.go#L410](https://github.com/hashicorp/terraform-provider-aws/blob/6076d5a60ec814b243bc45170d67cb268a39d927/internal/service/sqs/queue.go#L410)  
 Регулярные выражения:  
 ```
 		if fifoQueue {
