@@ -70,7 +70,8 @@ Error = No elements in array
 
 ## Задача 4. Протестировать код (необязательно).
 
-Создайте тесты для функций из предыдущего задания.
+Создайте тесты для функций из предыдущего задания.  
+
 [Задание 1](file/task1_test.go)
 ```bash
 [olga@fedora file]$ go test task1.go task1_test.go -v
