@@ -1,0 +1,5 @@
+---
+elk_version: "7.14.0"
+elasticsearch_version: "{{ elk_version }}"
+kibana_version: "{{ elk_version }}"
+filebeat_version: "{{ elk_version }}"
