@@ -18,7 +18,9 @@ Password:
 ```
 
 - Elastic взят из mnt-homeworks-ansible, tag 2.0.3 https://github.com/netology-code/mnt-homeworks-ansible/tree/2.0.3. 
-Дополнительно внесены правки в handlers (`and ansible_virtualization_type != 'podman'`)
+Дополнительно внесены правки в handlers (`and ansible_virtualization_type != 'podman'`).
+Использовался локальный git-репозиторий (через переменную `ANSIBLE_ROLES_PATH: /opt/ansible-testing` в molecule.yml -> provisioner -> env).
+Поэтому файл `requirements.yml` не нужен + `dependency` в molecule.yml закомментирован.
 
 - Всё выполнялось внутри контейнера.
 ```bash
