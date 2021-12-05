@@ -1,0 +1,5 @@
+---
+collections:
+  - name: https://github.com/anguisa/my_own_collection.git#/my_netology/my_own_collection
+    type: git
+    version: "1.0.0"

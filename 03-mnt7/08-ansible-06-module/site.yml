@@ -1,0 +1,9 @@
+---
+- name: Test my own module
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Execute module
+      my_netology.my_own_collection.my_own_module:
+        path: "/tmp/1.txt"
+        content: "hello world"

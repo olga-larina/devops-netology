@@ -1,0 +1,6 @@
+---
+- name: Test my own role
+  hosts: localhost
+  gather_facts: false
+  roles:
+    - my_netology.my_own_collection.my_own_role
