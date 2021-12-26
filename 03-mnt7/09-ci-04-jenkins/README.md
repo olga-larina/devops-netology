@@ -48,8 +48,8 @@ pip install -r test-requirements.txt
 cd elasticsearch-role
 molecule test
 ```
-![freestyle-1](img/freestyle-1.png)
-![freestyle-2](img/freestyle-2.png)
+![freestyle-1](img/freestyle-1.png)  
+![freestyle-2](img/freestyle-2.png)  
 ![freestyle-3](img/freestyle-3.png)
 
 2. Сделать Declarative Pipeline Job, который будет запускать `molecule test` из любого вашего репозитория с ролью.
@@ -88,7 +88,7 @@ pipeline {
 3. Перенести Declarative Pipeline в репозиторий в файл `Jenkinsfile`.
 
 ### Ответ
-`https://github.com/anguisa/mnt-homeworks-ansible/blob/main/Jenkinsfile`
+[https://github.com/anguisa/mnt-homeworks-ansible/blob/main/Jenkinsfile](https://github.com/anguisa/mnt-homeworks-ansible/blob/main/Jenkinsfile)
 
 4. Создать Multibranch Pipeline на запуск `Jenkinsfile` из репозитория.
 
