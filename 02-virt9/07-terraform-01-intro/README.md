@@ -104,3 +104,8 @@ Terraform v0.12.31
 Your version of Terraform is out of date! The latest version
 is 1.0.8. You can update by downloading from https://www.terraform.io/downloads.html
 ```
+
+
+### Комментарий по ДЗ
+С ответами согласен, все верно. Только на самом деле, можно везде использовать неизменяемый подход, 
+при хорошо настроенной система ci/cd частые изменения не будут напрягать разработчиков.

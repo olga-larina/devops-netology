@@ -211,3 +211,8 @@ proc4.close()
 ```  
 
 Пример запуска (из локального репозитория): `python3 1.py "My pr" "Commit new feature 1" feature PERSONAL_ACCESS_TOKEN`
+
+
+### Комментарий по ДЗ
+if result.find('modified') != -1: - по-питоновки больше будет if 'modified' in result:.
+Допку по сути через баш сделали :)

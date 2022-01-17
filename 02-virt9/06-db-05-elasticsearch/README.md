@@ -352,3 +352,7 @@ green  open   .geoip_databases WixBDYSPRUqz4CmnploeSQ   1   0         43        
 green  open   test-2           6pvdNA8hShaVyYcb_c0z_g   1   0          0            0       208b           208b
 green  open   test             xwWFaEBtQ_67G-Reg3tgIA   1   0          0            0       208b           208b
 ```
+
+
+### Комментарий по ДЗ
+https://stackoverflow.com/questions/15694724/shards-and-replicas-in-elasticsearch
