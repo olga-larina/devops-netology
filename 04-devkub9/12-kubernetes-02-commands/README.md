@@ -13,7 +13,7 @@
  * наличие подов можно проверить командой kubectl get pods
 
 ### Ответ
-[Файл деплоймент](hello-world-deployment.yml)
+[Файл деплоймент](hello-world-deployment.yml)  
 Команды:  
 ```bash
 kubectl apply -f hello-world-deployment.yml
@@ -71,7 +71,6 @@ root@vagrant:/home/myuser# kubectl config use-context myuser-context
 Switched to context "myuser-context".
 root@vagrant:/home/myuser# kubectl get po
 Error from server (Forbidden): pods is forbidden: User "myuser" cannot list resource "pods" in API group "" in the namespace "default"
-root@vagrant:/home/myuser# kubectl config use-context minikube
 ```
 - Даны необходимые права пользователю (используя контекст `minikube`) - созданы роль с помощью файла [role.yml](role.yml) и привязка пользователя к роли
 с помощью файла [role-binding.yml](role-binding.yml)
