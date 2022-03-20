@@ -100,7 +100,7 @@ hello-node-6b89d599b9-rtj9d   1/1     Running   0          45s
 ```bash
 root@vagrant:/home/vagrant# kubectl expose deployment hello-node --type=LoadBalancer --port=8080
 service/hello-node exposed
-root@vagrant:/home/vagrant# kubectl get services
+root@vagrant:/home/vagrant# `kubectl get services`
 NAME         TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
 hello-node   LoadBalancer   10.105.126.163   <pending>     8080:32399/TCP   5s
 kubernetes   ClusterIP      10.96.0.1        <none>        443/TCP          26m
