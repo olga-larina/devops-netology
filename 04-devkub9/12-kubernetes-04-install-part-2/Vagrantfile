@@ -1,0 +1,55 @@
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
+
+Vagrant.configure("2") do |config|
+
+  config.vm.define :cp1 do |cp1|
+    cp1.vm.box = "bento/ubuntu-20.04"
+    cp1.vm.network :private_network, ip: "192.168.56.50"
+    cp1.vm.provider "virtualbox" do |vb|
+        vb.name = "cp1"
+        vb.memory = "2048"
+        vb.cpus = 2
+    end
+  end
+
+  config.vm.define :node1 do |n|
+    n.vm.box = "bento/ubuntu-20.04"
+    n.vm.network :private_network, ip: "192.168.56.51"
+    n.vm.provider "virtualbox" do |vb|
+        vb.name = "node1"
+        vb.memory = "1500"
+        vb.cpus = 1
+    end
+  end
+
+  config.vm.define :node2 do |n|
+    n.vm.box = "bento/ubuntu-20.04"
+    n.vm.network :private_network, ip: "192.168.56.52"
+    n.vm.provider "virtualbox" do |vb|
+        vb.name = "node2"
+        vb.memory = "1500"
+        vb.cpus = 1
+    end
+  end
+
+  config.vm.define :node3 do |n|
+    n.vm.box = "bento/ubuntu-20.04"
+    n.vm.network :private_network, ip: "192.168.56.53"
+    n.vm.provider "virtualbox" do |vb|
+        vb.name = "node3"
+        vb.memory = "1500"
+        vb.cpus = 1
+    end
+  end
+
+  config.vm.define :node4 do |n|
+    n.vm.box = "bento/ubuntu-20.04"
+    n.vm.network :private_network, ip: "192.168.56.54"
+    n.vm.provider "virtualbox" do |vb|
+        vb.name = "node4"
+        vb.memory = "1500"
+        vb.cpus = 1
+    end
+  end
+
+end
