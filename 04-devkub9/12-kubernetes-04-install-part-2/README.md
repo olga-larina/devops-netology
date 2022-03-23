@@ -48,7 +48,7 @@ loadbalancer_apiserver:
 container_manager: containerd
 ```  
 
-Там же скорректированы подсети (в `kube_pods_subnet` `10.233.64.0/18` заменено на `10.244.64.0/18`). Иначе в конце установки возникала ошибка `callico`.
+Там же скорректированы подсети (в `kube_pods_subnet` `10.233.64.0/18` заменено на `10.244.64.0/18`). Иначе в конце установки возникала ошибка `calico`.
 ```yaml
 # Kubernetes internal network for services, unused block of space.
 kube_service_addresses: 10.233.0.0/18
