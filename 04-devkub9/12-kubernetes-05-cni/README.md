@@ -9,7 +9,7 @@
 ### Ответ
 Установка кластера произведена в [прошлом ДЗ](../12-kubernetes-04-install-part-2/README.md), плагин по умолчанию был calico
 (см. [k8s-cluster.yml](../12-kubernetes-04-install-part-2/mycluster/group_vars/k8s_cluster/k8s-cluster.yml) строку `kube_network_plugin: calico`). 
-[Конфиг](../12-kubernetes-04-install-part-2/config) используем тот же.  
+[Конфиг](../12-kubernetes-04-install-part-2/config) используем тот же, копируем в текущую папку.  
 
 Для п.2 (настройка политики доступа) использованы также материалы из [20-network-policy](https://github.com/aak74/kubernetes-for-beginners/tree/master/16-networking/20-network-policy) 
 и [туториала](https://docs.projectcalico.org/security/tutorials/kubernetes-policy-basic)
@@ -102,7 +102,7 @@ wget: download timed out
 ### Ответ
 На [сайте](https://projectcalico.docs.tigera.io/maintenance/clis/calicoctl/install) было несколько вариантов установки 
 `calicoctl`. Я выбрала установку как Kubernetes pod. В `kubespray/roles/kubespray-defaults/defaults/main.yaml` прописан `calico_datastore: "kdd"`.  
-Поэтому использовался файл `https://projectcalico.docs.tigera.io/manifests/calicoctl.yaml`. Однако пришлось понять версию `image: calico/ctl:v3.21.4`, иначе не работало. 
+Поэтому использовался файл `https://projectcalico.docs.tigera.io/manifests/calicoctl.yaml`. Однако пришлось поменять версию `image: calico/ctl:v3.21.4`, иначе не работало. 
 Итоговый файл - [calicoctl.yaml](calicoctl.yaml)
 ```bash
 [olga@fedora 12-kubernetes-05-cni]$ kubectl --kubeconfig=./config apply -f calicoctl.yaml
