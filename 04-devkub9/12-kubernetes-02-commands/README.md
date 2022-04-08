@@ -16,7 +16,7 @@
 [Файл деплоймент](hello-world-deployment.yml)  
 Команды:  
 ```bash
-kubectl apply -f hello-world-deployment.yml
+kubectl apply -f hello-world-backend.yml
 kubectl get deployments
 kubectl get pods
 ```
