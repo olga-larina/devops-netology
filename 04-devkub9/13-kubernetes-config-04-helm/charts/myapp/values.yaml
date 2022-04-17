@@ -1,0 +1,68 @@
+app:
+  # если stage, то будет развёрнут fullstack, если prod, то отдельно backend и frontend
+  env: prod
+
+backend:
+  service:
+    port: 9000
+  replicaCount: 1
+  name: backend
+  dbUrl: postgresql://postgres:postgres@postgres-headless-svc/news
+  init:
+    image: busybox:1.28
+    svc: postgres-headless-svc
+  image:
+    repository: anguisa/backend
+    pullPolicy: IfNotPresent
+    tag: latest
+
+frontend:
+  service:
+    port: 80
+    nodePort: 32182
+  replicaCount: 1
+  name: frontend
+  # stage - localhost:9000, prod - backend:9000
+  backendUrl: backend:9000
+  image:
+    repository: anguisa/frontend
+    pullPolicy: IfNotPresent
+    tag: latest
+
+# для prod
+pvc:
+  resources:
+    requests:
+      storage: 1Gi
+
+# для stage
+fullstack:
+  service:
+    port: 80
+    nodePort: 32183
+  replicaCount: 1
+
+database:
+  pv:
+    name: postgres-data-volume
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      capacity:
+        storage: 1Gi
+      hostPath:
+        path: /var/lib/postgresql
+  service:
+    port: 5432
+    targetPort: 5432
+  replicaCount: 1
+  name: postgresql
+  containerPort: 5432
+  credentials:
+    user: postgres
+    password: postgres
+    db: news
+  image:
+    repository: postgres
+    pullPolicy: IfNotPresent
+    tag: 13-alpine

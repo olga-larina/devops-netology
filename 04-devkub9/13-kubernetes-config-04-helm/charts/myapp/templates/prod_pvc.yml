@@ -1,0 +1,14 @@
+{{- if eq .Values.app.env "prod" -}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: prod-pvc
+spec:
+  storageClassName: nfs
+  accessModes:
+    - ReadWriteMany
+  {{- with .Values.pvc.resources }}
+  resources:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+{{- end }}

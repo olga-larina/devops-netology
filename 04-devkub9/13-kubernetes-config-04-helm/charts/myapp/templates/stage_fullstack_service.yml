@@ -1,0 +1,15 @@
+{{- if eq .Values.app.env "stage" -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: fullstack
+spec:
+  ports:
+    - name: http
+      port: {{ .Values.fullstack.service.port }}
+      protocol: TCP
+      nodePort: {{ .Values.fullstack.service.nodePort }}
+  selector:
+    app: fullstack
+  type: NodePort
+{{- end }}

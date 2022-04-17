@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-headless-svc
+spec:
+  type: ClusterIP
+  clusterIP: None
+  ports:
+    - name: postgresql
+      port: {{ .Values.database.service.port }}
+      targetPort: {{ .Values.database.service.targetPort }}
+      protocol: TCP
+  selector:
+    app: postgres

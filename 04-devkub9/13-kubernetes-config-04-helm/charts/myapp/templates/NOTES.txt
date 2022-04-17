@@ -1,0 +1,6 @@
+---------------------
+
+NOTES.txt:
+Chart deployed to {{ .Values.app.env }} environment.
+
+---------------------

@@ -1,0 +1,13 @@
+{{- if eq .Values.app.env "prod" -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+spec:
+  ports:
+    - name: back
+      port: {{ .Values.backend.service.port }}
+  selector:
+    app: backend
+  type: ClusterIP
+{{- end }}

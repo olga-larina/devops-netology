@@ -1,0 +1,47 @@
+{{- if eq .Values.app.env "stage" -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: fullstack
+  name: fullstack
+spec:
+  replicas: {{ .Values.fullstack.replicaCount }}
+  selector:
+    matchLabels:
+      app: fullstack
+  template:
+    metadata:
+      labels:
+        app: fullstack
+    spec:
+      containers:
+        - image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
+          name: {{ .Values.backend.name }}
+          env:
+            - name: DATABASE_URL
+              value: "{{ .Values.backend.dbUrl }}"
+          volumeMounts:
+            - mountPath: "/static-back"
+              name: stage-volume
+        - image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
+          name: {{ .Values.frontend.name }}
+          env:
+            - name: BACKEND_HOST
+              value: {{ .Values.frontend.backendUrl }}
+            - name: NGINX_ENVSUBST_TEMPLATE_SUFFIX
+              value: ".conf"
+          volumeMounts:
+            - mountPath: "/static-front"
+              name: stage-volume
+      initContainers:
+        - name: init-{{ .Values.backend.name }}
+          image: {{ .Values.backend.init.image }}
+          command: [ 'sh', '-c', "until nslookup {{ .Values.backend.init.svc }}; do echo waiting for {{ .Values.backend.init.svc }}; sleep 2; done" ]
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: stage-volume
+          emptyDir: {}
+{{- end }}

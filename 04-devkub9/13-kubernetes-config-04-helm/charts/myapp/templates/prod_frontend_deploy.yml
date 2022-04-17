@@ -1,0 +1,35 @@
+{{- if eq .Values.app.env "prod" -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: frontend
+  name: frontend
+spec:
+  replicas: {{ .Values.frontend.replicaCount }}
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
+          name: {{ .Values.frontend.name }}
+          env:
+            - name: BACKEND_HOST
+              value: {{ .Values.frontend.backendUrl }}
+            - name: NGINX_ENVSUBST_TEMPLATE_SUFFIX
+              value: ".conf"
+          volumeMounts:
+            - mountPath: "/static-front"
+              name: prod-frontend-volume
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: prod-frontend-volume
+          persistentVolumeClaim:
+            claimName: prod-pvc
+{{- end }}
