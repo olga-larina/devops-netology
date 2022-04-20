@@ -1,0 +1,26 @@
+apiVersion: qbec.io/v1alpha1
+kind: App
+metadata:
+  name: myapp
+spec:
+  environments:
+    stage:
+      defaultNamespace: test
+      server: https://192.168.56.50:6443
+      includes:
+        - fullstack
+    production:
+      defaultNamespace: test
+      server: https://192.168.56.50:6443
+      includes:
+        - ext_endpoint
+        - backend
+        - frontend
+        - pvc
+  vars: {}
+  excludes:
+    - ext_endpoint
+    - fullstack
+    - backend
+    - frontend
+    - pvc

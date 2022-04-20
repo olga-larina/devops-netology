@@ -1,0 +1,176 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    qbec.io/component: backend
+  labels:
+    app: backend
+    qbec.io/application: myapp
+    qbec.io/environment: production
+  name: backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - env:
+        - name: DATABASE_URL
+          value: postgresql://postgres:postgres@postgres-headless-svc/news
+        image: anguisa/backend:latest
+        imagePullPolicy: IfNotPresent
+        name: backend
+        volumeMounts:
+        - mountPath: /static-back
+          name: prod-backend-volume
+      initContainers:
+      - command:
+        - sh
+        - -c
+        - until nslookup postgres-headless-svc; do echo waiting for postgres-headless-svc;
+          sleep 2; done
+        image: busybox:1.28
+        name: init-backend
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: prod-backend-volume
+        persistentVolumeClaim:
+          claimName: prod-pvc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    qbec.io/component: backend
+  labels:
+    qbec.io/application: myapp
+    qbec.io/environment: production
+  name: backend
+spec:
+  ports:
+  - name: back
+    port: 9000
+  selector:
+    app: backend
+  type: ClusterIP
+
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  annotations:
+    qbec.io/component: ext_endpoint
+  labels:
+    qbec.io/application: myapp
+    qbec.io/environment: production
+  name: external-svc
+subsets:
+- addresses:
+  - ip: 23.22.52.7
+  ports:
+  - name: web
+    port: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    qbec.io/component: ext_endpoint
+  labels:
+    qbec.io/application: myapp
+    qbec.io/environment: production
+  name: external-svc
+spec:
+  clusterIP: None
+  ports:
+  - name: web
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  type: ClusterIP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    qbec.io/component: frontend
+  labels:
+    app: frontend
+    qbec.io/application: myapp
+    qbec.io/environment: production
+  name: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - env:
+        - name: BACKEND_HOST
+          value: backend:9000
+        - name: NGINX_ENVSUBST_TEMPLATE_SUFFIX
+          value: .conf
+        image: anguisa/frontend:latest
+        imagePullPolicy: IfNotPresent
+        name: frontend
+        volumeMounts:
+        - mountPath: /static-front
+          name: prod-frontend-volume
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: prod-frontend-volume
+        persistentVolumeClaim:
+          claimName: prod-pvc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    qbec.io/component: frontend
+  labels:
+    qbec.io/application: myapp
+    qbec.io/environment: production
+  name: frontend
+spec:
+  ports:
+  - name: http
+    nodePort: 32182
+    port: 80
+    protocol: TCP
+  selector:
+    app: frontend
+  type: NodePort
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+    qbec.io/component: pvc
+  labels:
+    qbec.io/application: myapp
+    qbec.io/environment: production
+  name: prod-pvc
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: nfs
+

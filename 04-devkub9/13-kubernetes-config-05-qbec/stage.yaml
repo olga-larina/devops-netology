@@ -1,0 +1,75 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    qbec.io/component: fullstack
+  labels:
+    app: fullstack
+    qbec.io/application: myapp
+    qbec.io/environment: stage
+  name: fullstack
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fullstack
+  template:
+    metadata:
+      labels:
+        app: fullstack
+    spec:
+      containers:
+      - env:
+        - name: DATABASE_URL
+          value: postgresql://postgres:postgres@postgres-headless-svc/news
+        image: anguisa/backend:latest
+        imagePullPolicy: IfNotPresent
+        name: backend
+        volumeMounts:
+        - mountPath: /static-back
+          name: stage-volume
+      - env:
+        - name: BACKEND_HOST
+          value: localhost:9000
+        - name: NGINX_ENVSUBST_TEMPLATE_SUFFIX
+          value: .conf
+        image: anguisa/frontend:latest
+        imagePullPolicy: IfNotPresent
+        name: frontend
+        volumeMounts:
+        - mountPath: /static-front
+          name: stage-volume
+      initContainers:
+      - command:
+        - sh
+        - -c
+        - until nslookup postgres-headless-svc; do echo waiting for postgres-headless-svc;
+          sleep 2; done
+        image: busybox:1.28
+        name: init-backend
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - emptyDir: {}
+        name: stage-volume
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    qbec.io/component: fullstack
+  labels:
+    qbec.io/application: myapp
+    qbec.io/environment: stage
+  name: fullstack
+spec:
+  ports:
+  - name: http
+    nodePort: 32183
+    port: 80
+    protocol: TCP
+  selector:
+    app: fullstack
+  type: NodePort
+
