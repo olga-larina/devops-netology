@@ -84,9 +84,30 @@ client.secrets.kv.v2.read_secret_version(
 ```
 
 #### Результат
-(в python3)
 
-```json
+```bash
+# python3
+Python 3.10.4 (main, Apr  2 2022, 09:04:19) [GCC 11.2.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import hvac
+>>> client = hvac.Client(
+...     url='http://172.17.0.8:8200',
+...     token='aiphohTaa0eeHei'
+... )
+>>> client.is_authenticated()
+True
+>>> 
+>>> # Пишем секрет
+>>> client.secrets.kv.v2.create_or_update_secret(
+...     path='hvac',
+...     secret=dict(netology='Big secret!!!'),
+... )
+{'request_id': 'fcf600e1-7b97-8a93-c46f-67afa05db6c8', 'lease_id': '', 'renewable': False, 'lease_duration': 0, 'data': {'created_time': '2022-05-21T12:05:37.548368218Z', 'custom_metadata': None, 'deletion_time': '', 'destroyed': False, 'version': 1}, 'wrap_info': None, 'warnings': None, 'auth': None}
+>>> 
+>>> # Читаем секрет
+>>> client.secrets.kv.v2.read_secret_version(
+...     path='hvac',
+... )
 {'request_id': '3f7c9de7-0e0b-9a62-3d4b-1fe57b071bf3', 'lease_id': '', 'renewable': False, 'lease_duration': 0, 'data': {'data': {'netology': 'Big secret!!!'}, 'metadata': {'created_time': '2022-05-21T12:05:37.548368218Z', 'custom_metadata': None, 'deletion_time': '', 'destroyed': False, 'version': 1}}, 'wrap_info': None, 'warnings': None, 'auth': None}
 ```
 
