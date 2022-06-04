@@ -53,11 +53,11 @@ provider_installation {
 
 - Необходимый image_id можно найти, зайдя в Compute cloud -> создать VM -> найти -> открыть страницу -> внизу будет image_id
 
-Проверка конфигурации: `terraform validate`
-Форматирование: `terraform fmt`
-Планирование: `terraform plan`
-Применение: `terraform apply` -> `yes`
-Удаление: `terraform destroy` -> `yes`
+Проверка конфигурации: `terraform validate`  
+Форматирование: `terraform fmt`  
+Планирование: `terraform plan`  
+Применение: `terraform apply` -> `yes`  
+Удаление: `terraform destroy` -> `yes`  
 
 ### Ответ
 Файл конфигурации - [main.tf](../../cloud-terraform/main.tf)  
