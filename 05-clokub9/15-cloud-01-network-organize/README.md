@@ -60,7 +60,8 @@ provider_installation {
 Удаление: `terraform destroy` -> `yes`  
 
 ### Ответ
-Файл конфигурации - [main.tf](../../cloud-terraform/main.tf)  
+Файл конфигурации - ../../cloud-terraform/main.tf  
+UPD. Перемещён в [main.tf](files/main.tf)
 
 Выполнены действия:
 ```bash
