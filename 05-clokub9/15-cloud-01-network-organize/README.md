@@ -61,7 +61,7 @@ provider_installation {
 
 ### Ответ
 Файл конфигурации - ../../cloud-terraform/main.tf  
-UPD. Перемещён в [main.tf](files/main.tf)
+UPD. Перемещён в [main.tf](files/main.tf), в `cloud-terraform` выполнена реогранизация по файлам.  
 
 Выполнены действия:
 ```bash
