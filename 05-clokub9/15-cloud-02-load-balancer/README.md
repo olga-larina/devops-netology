@@ -33,8 +33,8 @@
 3. В бакет добавлена картинка с теми же ключами и публичным доступом (`acl` = `public-read`) - [bucket.tf](../../cloud-terraform/bucket.tf).
 URL картинки имеет вид: `https://storage.yandexcloud.net/olga-ivanova-12062022/cat`  
 ![Bucket](files/bucket.png)  
-4. Для группы ВМ создан ещё один сервисный аккаунт `ig-sa`, которому выданы права `editor` и `vpc-user` (иначе ошибка отсутствия прав на создание в подсети)
-- [iam.tf](../../cloud-terraform/iam.tf)  
+4. Для группы ВМ создан ещё один сервисный аккаунт `ig-sa`, которому выданы права `editor` и `vpc-user` (иначе ошибка отсутствия прав 
+на создание в подсети) - [iam.tf](../../cloud-terraform/iam.tf)  
 5. Создана группа виртуальных машин - [instance-group.tf](../../cloud-terraform/instance-group.tf):  
 - сервисный аккаунт - `ig-sa`
 - без защиты прерывания
