@@ -14,6 +14,9 @@ resource "yandex_storage_bucket" "bucket-olga-ivanova-12062022" {
       }
     }
   }
+
+  # добавлено
+  depends_on = [yandex_iam_service_account.sa, yandex_resourcemanager_folder_iam_member.sa-editor]
 }
 
 # Картинка с доступом на чтение у всех

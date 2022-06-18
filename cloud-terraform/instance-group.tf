@@ -67,4 +67,7 @@ resource "yandex_compute_instance_group" "lamp" {
     target_group_name        = "cat-target-group"
     target_group_description = "load balancer cat target group"
   }
+
+  # добавлено
+  depends_on = [yandex_iam_service_account.ig-sa, yandex_resourcemanager_folder_iam_binding.editor, yandex_resourcemanager_folder_iam_binding.vpc-user]
 }

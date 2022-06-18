@@ -58,4 +58,5 @@ aws s3 mb s3://mysuperbacketname2021
 aws s3 cp index.html s3://mysuperbacketname2021
 ```
 
-
+### Комментарий по ДЗ
+Рекомендую попробовать с SSL сертификатами поиграться
