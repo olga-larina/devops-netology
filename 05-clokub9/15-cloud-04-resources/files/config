@@ -1,0 +1,22 @@
+apiVersion: v1
+clusters:
+- cluster:
+    server: https://51.250.78.211
+    certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM1ekNDQWMrZ0F3SUJBZ0lCQURBTkJna3...==
+  name: kubernetes
+contexts:
+- context:
+    cluster: kubernetes
+    user: yc
+  name: ycmk8s
+current-context: ycmk8s
+users:
+- name: yc
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1beta1
+      command: yc
+      args:
+      - k8s
+      - create-token
+
