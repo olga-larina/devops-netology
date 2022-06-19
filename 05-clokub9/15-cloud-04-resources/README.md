@@ -49,7 +49,7 @@
 - Для kubeconfig создан шаблон в [main.tf](../../cloud-terraform/k8s.tf). После завершения работы `terraform apply` выполнено:
 ```bash
 terraform output kubeconfig > /home/olga/docs/config
-sed '/EOT/d' -i /home/olga/config
+sed '/EOT/d' -i /home/olga/docs/config
 ```
 Итоговый конфиг - см. [config](files/config) (certificate-authority-data обрезан).  
 Для его использования потребовалось установить yandex cloud cli (после установки выполнен перезапуск терминала):
